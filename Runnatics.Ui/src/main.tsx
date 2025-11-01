@@ -14,7 +14,7 @@ configureDayjs();
 configureAxios();
 const reactQueryClient = createReactQueryClient();
 
-ReactDOM.createRoot(document.getElementById('spa-root')!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={reactQueryClient}>
       <App />

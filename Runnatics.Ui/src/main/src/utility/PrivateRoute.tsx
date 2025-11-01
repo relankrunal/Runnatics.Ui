@@ -1,14 +1,8 @@
-import { createContext, useContext } from "react";
+import { useContext } from "react";
 import { AppPermission } from "../models/AppPermission";
-
-
-interface SessionContextType {
-    userHasPermission: (permission: AppPermission) => boolean;
-}
-
-const SessionContext = createContext<SessionContextType>({
-    userHasPermission: () => false,
-});
+import { UnauthorizedErrorPage } from "../pages/admin/errorPages/UnAuthorizedErrorPage";
+import { Outlet} from "react-router-dom";
+import { SessionContext } from "../contexts/SessionContext";
 
 interface PrivateRouteProps {
     permissions: Array<AppPermission>
@@ -16,5 +10,6 @@ interface PrivateRouteProps {
 
 export const PrivateRoutes = (props: PrivateRouteProps) => {
     const { userHasPermission } = useContext(SessionContext);
-    return null;
+
+    return userHasPermission(props.permissions) ? <Outlet /> : <UnauthorizedErrorPage />;
 }
