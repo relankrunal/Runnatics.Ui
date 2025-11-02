@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { CreateEventForm } from "../../components/events/CreateEventForm";
+import { CreateEventForm } from "../../../components/events/CreateEventForm";
+    //"../../components/events/CreateEventForm";
 //import { useAuthStore } from "../../stores/auth.store";
 
 export const CreateEventPage = () => {

@@ -1,7 +1,7 @@
 import { EventSettings } from "./EventSettings";
 import { EventStatus } from "./EventStatus";
 
-export interface CreateEventInput {
+export interface CreateEventRequest {
     organizationId: number;
     name: string;
     slug: string;

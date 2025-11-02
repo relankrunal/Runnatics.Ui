@@ -15,13 +15,13 @@ import {
   Globe,
   Settings as SettingsIcon,
 } from "lucide-react";
-import { eventService } from "../../services/event.service";
+import { eventService } from "../../../services/EventService";
 import {
   CreateEventFormData,
-  CreateEventInput,
+  CreateEventRequest,
   EventStatus,
-} from "../../types/event.types";
-import { useAuthStore } from "../../stores/auth.store";
+} from "../../../models";
+//import { useAuthStore } from "../../stores/auth.store";
 import { toast } from "react-hot-toast";
 
 interface CreateEventFormProps {
@@ -49,6 +49,9 @@ const TIMEZONES = [
   "Asia/Tokyo",
   "Asia/Shanghai",
   "Australia/Sydney",
+  "Asia/Kolkata",
+  "Asia/Singapore",
+  "Pacific/Auckland",
 ];
 
 export const CreateEventForm: React.FC<CreateEventFormProps> = ({
@@ -58,7 +61,7 @@ export const CreateEventForm: React.FC<CreateEventFormProps> = ({
 }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { user } = useAuthStore();
+  //const { user } = useAuthStore();
   const [isGeneratingSlug, setIsGeneratingSlug] = useState(true);
 
   const {
@@ -110,7 +113,7 @@ export const CreateEventForm: React.FC<CreateEventFormProps> = ({
   const createEventMutation = useMutation({
     mutationFn: async (data: CreateEventFormData) => {
       // Prepare the data for API
-      const eventInput: CreateEventInput = {
+      const eventInput: CreateEventRequest = {
         organizationId,
         name: data.name,
         slug: data.slug,

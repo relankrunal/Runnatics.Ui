@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { CreateEventInput, Event, EventOrganizer } from '../types/event.types';
+import {CreateEventRequest, Event, EventOrganizer } from '../models';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
 // Create axios instance with interceptors
 const apiClient = axios.create({
@@ -38,7 +38,7 @@ apiClient.interceptors.response.use(
 
 export const eventService = {
     // Create a new event
-    async createEvent(data: CreateEventInput): Promise<Event> {
+    async createEvent(data: CreateEventRequest): Promise<Event> {
         const response = await apiClient.post<Event>('/events', data);
         return response.data;
     },
@@ -56,7 +56,7 @@ export const eventService = {
     },
 
     // Update an event
-    async updateEvent(id: number, data: Partial<CreateEventInput>): Promise<Event> {
+    async updateEvent(id: number, data: Partial<CreateEventRequest>): Promise<Event> {
         const response = await apiClient.put<Event>(`/events/${id}`, data);
         return response.data;
     },
