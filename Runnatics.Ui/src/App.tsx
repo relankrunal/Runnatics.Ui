@@ -1,33 +1,35 @@
-import { useState } from 'react'
-
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ThemeProvider } from "../src/main/src/theme";
+//"./theme/ThemeProvider";
+import DashboardLayout from "../src/main/src/components/DashboardLayout";
+import routes from "./Routes";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src="/react.svg" className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ThemeProvider>
+      <BrowserRouter>
+        <DashboardLayout>
+          <Routes>
+            <Route
+              path="/"
+              element={<Navigate to="/events/events-dashboard" replace />}
+            />
+            {routes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element}>
+                {route.children?.map((child, childIndex) => (
+                  <Route
+                    key={childIndex}
+                    path={child.path}
+                    element={child.element}
+                  />
+                ))}
+              </Route>
+            ))}
+          </Routes>
+        </DashboardLayout>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
